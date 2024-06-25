@@ -1,0 +1,1 @@
+"# netflix-gpt"  initgit add README.mdgit commit -m "first commit"git branch -M maingit remote add origin https://github.com/navsingh2k/netflix-gpt.gitgit push -u origin main
