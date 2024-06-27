@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
-
+import { ValidateFormData } from "../utils/Validate";
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+  const validateForm = ()=>{
+    const message = ValidateFormData(emailRef.current.value,passwordRef.current.value);
+    setErrorMessage(message);
+  }
   const toggleForm = () => {
     setIsSignIn(!isSignIn);
   };
@@ -27,11 +34,13 @@ const Login = () => {
             ></input>
           )}
           <input
+            ref={emailRef}
             className="p-5 mx-[10%] my-4 w-4/5 bg-gray-900 placeholder-white"
             type="email"
             placeholder="Email or mobile number"
           ></input>
           <input
+            ref={passwordRef}
             className="p-5 mx-[10%] my-4 w-4/5 bg-gray-900 placeholder-white"
             type="password"
             placeholder="Password"
@@ -39,9 +48,11 @@ const Login = () => {
           <button
             type="button"
             className="bg-red-600 text-white p-5 mx-[10%] mt-5 w-4/5 font-bold rounded-lg"
+            onClick={validateForm}
           >
             {isSignIn ? "Sign In" : "Sign Up"}
           </button>
+          <p className="text-red-500 font-bold mx-[10%] py-4">{errorMessage}</p>
           <p onClick={toggleForm} className="my-4 mx-[10%] cursor-pointer">
             {isSignIn
               ? "New to Netfix? Sign Up Now!"
